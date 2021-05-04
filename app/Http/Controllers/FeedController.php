@@ -2,16 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Actions\Feeds\GetFeedsAction;
 use Inertia\Inertia;
 
+/**
+ * Class FeedController
+ * @package App\Http\Controllers
+ * @author Ahmed Helal Ahmed
+ */
 class FeedController extends Controller
 {
-    public function __invoke()
+    /**
+     * @param GetFeedsAction $getFeedsAction
+     * @return \Inertia\Response
+     */
+    public function __invoke(GetFeedsAction $getFeedsAction)
     {
         return Inertia::render('Feeds/Index', [
-            'data' =>['message'=>'hello from laravel'],
+            'feeds' => $getFeedsAction->execute(),
         ]);
-
     }
 }

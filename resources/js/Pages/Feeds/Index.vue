@@ -1,12 +1,34 @@
 <template>
-<p>this is index of feeds {{data.message}}</p>
+    <app-layout>
+        <template #header>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                Feeds
+            </h2>
+        </template>
+
+        <div>
+            <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
+                <a v-for="(feed, key) in feeds" :href="feed.link" target="_blank">
+                    <div class="border p-3 bg-white">
+                        {{ feed.title }}
+                    </div>
+                </a>
+            </div>
+        </div>
+    </app-layout>
 </template>
 
 <script>
+import AppLayout from '@/Layouts/AppLayout'
+
 export default {
+
+    components: {
+        AppLayout,
+    },
     name: "Index",
     props: {
-        data: Object,
+        feeds: Array,
     },
 }
 </script>
