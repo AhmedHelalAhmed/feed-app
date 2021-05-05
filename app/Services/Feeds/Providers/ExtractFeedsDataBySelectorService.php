@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Actions\Feeds;
+namespace App\Services\Feeds\Providers;
 
 use Goutte\Client;
 
 /**
- * Class ExtractFeedsDataAction
- * @package App\Actions\Feeds
+ * Class ExtractFeedsDataBySelectorService
+ * @package App\Services\Feeds\Providers
  * @author Ahmed Helal Ahmed
  */
-class ExtractFeedsDataAction
+class ExtractFeedsDataBySelectorService
 {
     private $feeds;
     private $limit;

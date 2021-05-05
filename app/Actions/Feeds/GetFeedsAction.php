@@ -11,35 +11,25 @@ namespace App\Actions\Feeds;
 class GetFeedsAction
 {
     /**
-     * @var ExtractFeedsDataAction
-     */
-    private $extractFeedsDataAction;
-
-    /**
-     * GetFeedsAction constructor.
-     * @param ExtractFeedsDataAction $extractFeedsDataAction
-     */
-    public function __construct(ExtractFeedsDataAction $extractFeedsDataAction)
-    {
-        $this->extractFeedsDataAction = $extractFeedsDataAction;
-    }
-
-    /**
      * @return array
      */
-    public function execute()
+    public function execute(): array
     {
         $feeds = collect();
-        foreach (config('feeds.providers') as $provider) {
+        $activeProviders = $this->getActiveProviders();
+        foreach ($activeProviders as $provider) {
             $feeds = $feeds->merge(
-                $this->extractFeedsDataAction
-                    ->execute(
-                        $provider['url'],
-                        $provider['selector'],
-                        intval(config('feeds.limit'))
-                    )
+                app($provider['action'])->execute($provider)
             );
         }
         return $feeds->values()->toArray();
+    }
+
+    private function getActiveProviders()
+    {
+        return array_filter(config('feeds.providers'), function ($provider) {
+            return $provider['isActive'];
+        });
+
     }
 }
