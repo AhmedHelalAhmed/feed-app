@@ -25,8 +25,11 @@ Route::get('/', function () {
     ]);
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return Inertia::render('Dashboard',['feedsIndexLink'=>route('feeds.index')]);
-})->name('dashboard');
+Route::middleware(['auth:sanctum', 'verified'])
+    ->get('/dashboard', function () {
+        return Inertia::render('Dashboard', ['feedsIndexLink' => route('feeds.index')]);
+    })->name('dashboard');
 
-Route::get('/feeds', FeedController::class)->name('feeds.index');
+Route::middleware(['auth:sanctum', 'verified'])
+    ->get('/feeds', FeedController::class)
+    ->name('feeds.index');
