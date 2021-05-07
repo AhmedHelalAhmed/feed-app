@@ -9,8 +9,8 @@
         <div>
             <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
                 <a v-for="(feed, key) in feeds" :href="feed.link" target="_blank">
-                    <div class="border p-3 bg-white">
-                        {{key+1}} - {{ feed.title }}
+                    <div class="border p-3 bg-white hover:bg-gray-200">
+                        <span class="font-bold">{{key+1}}-</span> <span class="text-blue-600">{{ feed.title }}</span>
                     </div>
                 </a>
             </div>
