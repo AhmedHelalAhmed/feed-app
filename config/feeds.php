@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'limit' => env('feeds_limit', 3),
+    'limit' => env('FEEDS_LIMIT', 3),
     'providers' => [
         [
             'url' => 'https://learninglaravel.net/blog',
@@ -19,7 +19,14 @@ return [
         [
             'url' => 'https://laravel-news.com/links',
             'selector' => '.card a',
-            'action' => App\Actions\Feeds\Providers\laravelNewsLinks\LaravelNewsLinksFeedsAction::class,
+            'action' => App\Actions\Feeds\Providers\LaravelNewsLinks\LaravelNewsLinksFeedsAction::class,
+            'isActive' => true
+        ],
+        [
+            'url' => 'https://laravel-news.com/blog',
+            'domain' => 'https://laravel-news.com',
+            'selector' => '.card a',
+            'action' => App\Actions\Feeds\Providers\LaravelNewsPosts\LaravelNewsPostsFeedsAction::class,
             'isActive' => true
         ],
 

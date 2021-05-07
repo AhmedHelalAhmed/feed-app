@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Actions\Feeds\Providers\laravelNewsLinks;
+namespace App\Actions\Feeds\Providers\LaravelNewsPosts;
 
 use Goutte\Client;
 
 /**
- * Class LaravelNewsLinksFeedsAction
- * @package App\Actions\Feeds\Providers\laravelNewsLinks
+ * Class LaravelNewsPostsFeedsAction
+ * @package App\Actions\Feeds\Providers\LaravelNewsPosts
  * @author Ahmed Helal Ahmed
  */
-class LaravelNewsLinksFeedsAction
+class LaravelNewsPostsFeedsAction
 {
     private $feeds;
     private $limit;
@@ -24,11 +24,11 @@ class LaravelNewsLinksFeedsAction
         $this->resetFeeds();
         $crawler = (new Client())->request('GET', $provider['url']);
         $crawler->filter($provider['selector'])
-            ->each(function ($node) {
+            ->each(function ($node) use ($provider) {
                 if ($this->isReachLimit()) {
                     return false;
                 }
-                $this->addToFeeds($node);
+                $this->addToFeeds($node, $provider['domain']);
             });
 
         return $this->feeds;
@@ -57,12 +57,13 @@ class LaravelNewsLinksFeedsAction
 
     /**
      * @param $node
+     * @param $domain
      */
-    private function addToFeeds($node)
+    private function addToFeeds($node, $domain)
     {
         $this->feeds->add([
-            'title' => $node->filter('.mb-4')->first()->text(),
-            'link' => $node->attr('href')
+            'title' => $node->filter('.link')->first()->text(),
+            'link' => $domain.$node->attr('href')
         ]);
     }
 }

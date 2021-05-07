@@ -10,7 +10,7 @@
             <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
                 <a v-for="(feed, key) in feeds" :href="feed.link" target="_blank">
                     <div class="border p-3 bg-white">
-                        {{ feed.title }}
+                        {{key+1}} - {{ feed.title }}
                     </div>
                 </a>
             </div>
