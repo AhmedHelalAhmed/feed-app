@@ -13,7 +13,6 @@ use Goutte\Client;
  */
 class LaravelNewsLinksFeedsAction
 {
-    private $feeds;
     use FeedableTrait;
     use LimitableTrait;
 

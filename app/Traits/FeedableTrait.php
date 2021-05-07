@@ -5,6 +5,8 @@ namespace App\Traits;
 
 trait FeedableTrait
 {
+    private $feeds;
+
     private function resetFeeds()
     {
         $this->feeds = collect();

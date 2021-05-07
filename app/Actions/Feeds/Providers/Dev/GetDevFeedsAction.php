@@ -13,7 +13,6 @@ class GetDevFeedsAction
 {
     use ExecutableFeedsWithDomainTrait;
 
-
     /**
      * @param $node
      * @param $domain

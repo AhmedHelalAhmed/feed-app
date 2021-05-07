@@ -9,7 +9,6 @@ trait ExecutableFeedsWithDomainTrait
 {
     use LimitableTrait;
     use FeedableTrait;
-    private $feeds;
     /**
      * @param array $provider
      * @return mixed
