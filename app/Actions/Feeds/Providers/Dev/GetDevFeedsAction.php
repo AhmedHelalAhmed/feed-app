@@ -11,8 +11,6 @@ use App\Traits\ExecutableFeedsWithDomainTrait;
  */
 class GetDevFeedsAction
 {
-
-
     use ExecutableFeedsWithDomainTrait;
 
 

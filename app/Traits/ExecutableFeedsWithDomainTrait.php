@@ -3,9 +3,7 @@
 
 namespace App\Traits;
 
-
 use Goutte\Client;
-
 
 trait ExecutableFeedsWithDomainTrait
 {

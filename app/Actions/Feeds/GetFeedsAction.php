@@ -2,7 +2,6 @@
 
 namespace App\Actions\Feeds;
 
-
 /**
  * Class GetFeedsAction
  * @package App\Actions\Feeds
@@ -30,6 +29,5 @@ class GetFeedsAction
         return array_filter(config('feeds.providers'), function ($provider) {
             return $provider['isActive'];
         });
-
     }
 }

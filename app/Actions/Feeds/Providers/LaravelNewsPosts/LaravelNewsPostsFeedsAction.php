@@ -2,7 +2,6 @@
 
 namespace App\Actions\Feeds\Providers\LaravelNewsPosts;
 
-
 use App\Traits\ExecutableFeedsWithDomainTrait;
 
 /**
@@ -12,7 +11,6 @@ use App\Traits\ExecutableFeedsWithDomainTrait;
  */
 class LaravelNewsPostsFeedsAction
 {
-
     use ExecutableFeedsWithDomainTrait;
 
     /**

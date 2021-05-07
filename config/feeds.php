@@ -11,7 +11,7 @@ return [
         ],
         [
             'url' => 'https://dev.to/t/laravel',
-            'domain' => 'https://dev.to/',
+            'domain' => 'https://dev.to',
             'selector' => '.crayons-story__title > a',
             'action' => App\Actions\Feeds\Providers\Dev\GetDevFeedsAction::class,
             'isActive' => true

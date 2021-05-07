@@ -3,10 +3,8 @@
 
 namespace App\Traits;
 
-
 trait FeedableTrait
 {
-
     private function resetFeeds()
     {
         $this->feeds = collect();

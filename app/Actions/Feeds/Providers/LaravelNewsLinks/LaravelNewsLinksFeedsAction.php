@@ -2,6 +2,8 @@
 
 namespace App\Actions\Feeds\Providers\LaravelNewsLinks;
 
+use App\Traits\FeedableTrait;
+use App\Traits\LimitableTrait;
 use Goutte\Client;
 
 /**
@@ -12,7 +14,8 @@ use Goutte\Client;
 class LaravelNewsLinksFeedsAction
 {
     private $feeds;
-    private $limit;
+    use FeedableTrait;
+    use LimitableTrait;
 
     /**
      * @param array $provider
@@ -34,26 +37,6 @@ class LaravelNewsLinksFeedsAction
         return $this->feeds;
     }
 
-    /**
-     * @param $limit
-     */
-    private function setLimit($limit)
-    {
-        $this->limit = $limit;
-    }
-
-    private function resetFeeds()
-    {
-        $this->feeds = collect();
-    }
-
-    /**
-     * @return bool
-     */
-    private function isReachLimit(): bool
-    {
-        return $this->feeds->count() === $this->limit;
-    }
 
     /**
      * @param $node

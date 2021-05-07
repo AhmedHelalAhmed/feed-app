@@ -3,7 +3,6 @@
 
 namespace App\Traits;
 
-
 trait LimitableTrait
 {
     private $limit;
@@ -15,6 +14,4 @@ trait LimitableTrait
     {
         $this->limit = $limit;
     }
-
-
 }

@@ -20,7 +20,7 @@ class ExtractFeedsDataBySelectorService
      * @param int $limit
      * @return mixed
      */
-    public function execute(string $website,string $selector,int $limit)
+    public function execute(string $website, string $selector, int $limit)
     {
         $this->setLimit($limit);
         $this->resetFeeds();
