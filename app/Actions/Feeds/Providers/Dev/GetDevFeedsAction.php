@@ -2,7 +2,7 @@
 
 namespace App\Actions\Feeds\Providers\Dev;
 
-use App\Services\Feeds\Providers\ExtractFeedsDataBySelectorService;
+use Goutte\Client;
 
 /**
  * Class GetDevFeedsAction
@@ -11,19 +11,8 @@ use App\Services\Feeds\Providers\ExtractFeedsDataBySelectorService;
  */
 class GetDevFeedsAction
 {
-    /**
-     * @var ExtractFeedsDataBySelectorService
-     */
-    private $extractFeedsDataBySelectorService;
-
-    /**
-     * GetLearningLaravelFeedsAction constructor.
-     * @param ExtractFeedsDataBySelectorService $extractFeedsDataBySelectorService
-     */
-    public function __construct(ExtractFeedsDataBySelectorService $extractFeedsDataBySelectorService)
-    {
-        $this->extractFeedsDataBySelectorService = $extractFeedsDataBySelectorService;
-    }
+    private $feeds;
+    private $limit;
 
     /**
      * @param array $provider
@@ -31,11 +20,50 @@ class GetDevFeedsAction
      */
     public function execute(array $provider)
     {
-        return $this->extractFeedsDataBySelectorService
-            ->execute(
-                $provider['url'],
-                $provider['selector'],
-                intval(config('feeds.limit'))
-            );
+        $this->setLimit(intval(config('feeds.limit')));
+        $this->resetFeeds();
+        $crawler = (new Client())->request('GET', $provider['url']);
+        $crawler->filter($provider['selector'])
+            ->each(function ($node) use ($provider) {
+                if ($this->isReachLimit()) {
+                    return false;
+                }
+                $this->addToFeeds($node, $provider['domain']);
+            });
+
+        return $this->feeds;
+    }
+
+    /**
+     * @param $limit
+     */
+    private function setLimit($limit)
+    {
+        $this->limit = $limit;
+    }
+
+    private function resetFeeds()
+    {
+        $this->feeds = collect();
+    }
+
+    /**
+     * @return bool
+     */
+    private function isReachLimit(): bool
+    {
+        return $this->feeds->count() === $this->limit;
+    }
+
+    /**
+     * @param $node
+     * @param $domain
+     */
+    private function addToFeeds($node, $domain)
+    {
+        $this->feeds->add([
+            'title' => $node->text(),
+            'link' => $domain . $node->attr('href')
+        ]);
     }
 }
