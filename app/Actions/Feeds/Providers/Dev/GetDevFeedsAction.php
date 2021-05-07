@@ -2,7 +2,7 @@
 
 namespace App\Actions\Feeds\Providers\Dev;
 
-use Goutte\Client;
+use App\Traits\ExecutableFeedsWithDomainTrait;
 
 /**
  * Class GetDevFeedsAction
@@ -11,49 +11,10 @@ use Goutte\Client;
  */
 class GetDevFeedsAction
 {
-    private $feeds;
-    private $limit;
 
-    /**
-     * @param array $provider
-     * @return mixed
-     */
-    public function execute(array $provider)
-    {
-        $this->setLimit(intval(config('feeds.limit')));
-        $this->resetFeeds();
-        $crawler = (new Client())->request('GET', $provider['url']);
-        $crawler->filter($provider['selector'])
-            ->each(function ($node) use ($provider) {
-                if ($this->isReachLimit()) {
-                    return false;
-                }
-                $this->addToFeeds($node, $provider['domain']);
-            });
 
-        return $this->feeds;
-    }
+    use ExecutableFeedsWithDomainTrait;
 
-    /**
-     * @param $limit
-     */
-    private function setLimit($limit)
-    {
-        $this->limit = $limit;
-    }
-
-    private function resetFeeds()
-    {
-        $this->feeds = collect();
-    }
-
-    /**
-     * @return bool
-     */
-    private function isReachLimit(): bool
-    {
-        return $this->feeds->count() === $this->limit;
-    }
 
     /**
      * @param $node
