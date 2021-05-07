@@ -15,6 +15,12 @@ return [
             'action' => App\Actions\Feeds\Providers\Dev\GetDevFeedsAction::class,
             'isActive' => true
         ],
+        [
+            'url' => 'https://laravel-news.com/links',
+            'selector' => '.card a',
+            'action' => App\Actions\Feeds\Providers\laravelNewsLinks\LaravelNewsLinksFeedsAction::class,
+            'isActive' => true
+        ],
 
     ],
 
